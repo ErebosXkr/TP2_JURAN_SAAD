@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taquin/pages/exo4.dart';
+import 'package:taquin/pages/exo2.dart';
 import 'package:taquin/pages/exo5.dart';
 
 class Home extends StatelessWidget{
@@ -17,6 +18,19 @@ class Home extends StatelessWidget{
 
       body: ListView(
         children: [
+
+          Card(
+            color: Colors.blue,
+            child: ListTile(
+              title: Text("Exo 2", style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
+              onTap: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ImageTransformer())
+                );
+              },
+            ),
+          ),
+
 
           Card(
             color: Colors.blue,
