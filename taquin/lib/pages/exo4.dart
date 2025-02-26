@@ -6,15 +6,15 @@ class Tile {
 
   Tile({required this.imageURL,required this.alignment});
 
-  Widget croppedImageTile() {
+  Widget croppedImageTile(factor) {
     return FittedBox(
       fit: BoxFit.fill,
       child: ClipRect(
         child: Container(
           child: Align(
             alignment: this.alignment,
-            widthFactor: 0.3,
-            heightFactor: 0.3,
+            widthFactor: factor,
+            heightFactor: factor,
             child: Image.network(this.imageURL),
           ),
         ),
@@ -24,7 +24,7 @@ class Tile {
 }
 
 Tile tile = new Tile(
-    imageURL: 'https://picsum.photos/512', alignment: Alignment(0, 0));
+    imageURL: 'https://picsum.photos/512', alignment: Alignment(-1, -1));
 
 class DisplayTileWidget extends StatelessWidget {
   const DisplayTileWidget({super.key});
@@ -55,7 +55,7 @@ class DisplayTileWidget extends StatelessWidget {
 
   Widget createTileWidgetFrom(Tile tile) {
     return InkWell(
-      child: tile.croppedImageTile(),
+      child: tile.croppedImageTile(0.3),
       onTap: () {
         print("tapped on tile");
       },
