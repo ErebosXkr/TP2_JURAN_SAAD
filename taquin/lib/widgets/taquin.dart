@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+// marche pas de fou
 class Taquin extends StatefulWidget{
 
   final int n;
