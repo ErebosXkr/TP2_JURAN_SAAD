@@ -25,7 +25,7 @@ class Home extends StatelessWidget{
                 Navigator.push(context,
                   // remplacer par la page corresondante
                   MaterialPageRoute(builder: (context) => Scaffold())
-                )
+                );
               },
             ),
           )
