@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taquin/pages/exo4.dart';
 
 class Home extends StatelessWidget{
   const Home({super.key});
@@ -19,15 +20,15 @@ class Home extends StatelessWidget{
           Card(
             color: Colors.blue,
             child: ListTile(
-              title: Text("Exo 2", style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
+              title: Text("Exo 4", style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
               onTap: () {
                 Navigator.push(context,
                 // remplacer Scaffold() par la bonne page
-                  MaterialPageRoute(builder: (context) => Scaffold())
+                  MaterialPageRoute(builder: (context) => DisplayTileWidget())
                 );
               },
             ),
-          )
+          ),
 
         ],
       )
