@@ -16,25 +16,28 @@ class Home extends StatelessWidget{
       body: ListView(
         children: [
 
-          Card(
-            color: Colors.blue,
-            child: ListTile(
-              // numéro de l'exercice
-              title: Text("Exo 2", style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
-              onTap: () {
-                Navigator.push(context,
-                  // remplacer par la page corresondante
-                  MaterialPageRoute(builder: (context) => Scaffold())
-                );
-              },
-            ),
-          )
+          // changer scaffold() par la bonne page
+          getCardFor(context, "Exo2", (context) => Scaffold()),
 
         ],
       )
 
     );
 
+  }
+
+  Card getCardFor(BuildContext context, String title, WidgetBuilder f) {
+    return Card(
+            color: Colors.blue,
+            child: ListTile(
+              title: Text("Exo 2", style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
+              onTap: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: f)
+                );
+              },
+            ),
+          );
   }
 
 
