@@ -19,11 +19,10 @@ class Home extends StatelessWidget{
           Card(
             color: Colors.blue,
             child: ListTile(
-              // numéro de l'exercice
               title: Text("Exo 2", style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
               onTap: () {
                 Navigator.push(context,
-                  // remplacer par la page corresondante
+                // remplacer Scaffold() par la bonne page
                   MaterialPageRoute(builder: (context) => Scaffold())
                 );
               },
