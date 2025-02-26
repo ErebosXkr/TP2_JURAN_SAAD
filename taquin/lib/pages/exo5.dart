@@ -17,7 +17,7 @@ class Exo5 extends StatelessWidget {
       ),
 
       body: Center(
-        child: Taquin(width, 4),
+        child: Taquin(width, 8),
       )
 
     );
