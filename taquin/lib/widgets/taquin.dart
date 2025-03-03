@@ -97,7 +97,12 @@ class TaquinState extends State<Taquin> {
         height: widget.size / widget.n,
         child: InkWell(
           onTap: () => move(index),
-          child: tiles![index] != widget.n*widget.n-1 ? Tile(imageURL: widget.url, alignment: a).croppedImageTile(1.0/widget.n) : ColoredBox(color: Colors.white),
+          child: tiles![index] != widget.n*widget.n-1 ? Stack(
+            children: [
+              Tile(imageURL: widget.url, alignment: a).croppedImageTile(1.0/widget.n),
+              Text("${tiles![index]}", style: TextStyle(color: Colors.black, fontSize: 12),)
+            ],
+          ) : ColoredBox(color: Colors.white),
         )
         );}
       );

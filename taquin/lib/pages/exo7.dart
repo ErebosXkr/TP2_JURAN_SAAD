@@ -54,7 +54,7 @@ class Exo7State extends State<Exo7> {
             }
 
           }, child: Text(btext)),
-          Slider(value: div.toDouble(), max: 8, min: 2, divisions: 5, onChanged: (value) => setState(() {
+          Slider(value: div.toDouble(), max: 8, min: 2, divisions: 6, onChanged: (value) => setState(() {
             if (playable) return;
             div = value.toInt();
           }), activeColor: playable ? Colors.grey : Colors.blue,)
