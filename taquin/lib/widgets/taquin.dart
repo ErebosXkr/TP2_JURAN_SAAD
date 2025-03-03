@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:taquin/pages/exo4.dart';
 
 // marche pas de fou
 class Taquin extends StatefulWidget{
@@ -9,7 +8,7 @@ class Taquin extends StatefulWidget{
   final int size;
   late String url;
   Taquin(this.size, this.n, {super.key}) {
-    url = "https://picsum.photos/512/1024";
+    url = "https://picsum.photos/1024";
   }
 
   @override
@@ -37,40 +36,28 @@ class TaquinState extends State<Taquin> {
       height: widget.size as double,
       child: GridView.count(
       crossAxisCount: widget.n,
+      crossAxisSpacing: 2,
+      mainAxisSpacing: 2,
       
-      children: List.generate(widget.n*widget.n, (index) => SizedBox(
+      children: List.generate(widget.n*widget.n, (index) {
+        int i = index%widget.n;
+        int j = index~/widget.n;
+        Alignment a = Alignment(i/(widget.n-1)*2 - 1, j/(widget.n-1)*2 - 1);
+
+        return SizedBox(
         width: widget.size / widget.n,
         height: widget.size / widget.n,
-        child: Material(
-          color: tiles![index] == widget.n*widget.n-1 ? Colors.white : Color.fromARGB(255,tiles![index]*10,tiles![index]*10,tiles![index]*10),
-          child: InkWell(
-            onTap: () {move(index);},
-          ),
-        ),
+        child: InkWell(
+          onTap: () => move(index),
+          child: new Tile(imageURL: widget.url, alignment: a).croppedImageTile(1.0/widget.n),
+        )
+        );}
       )),
       
-      ),
     );
   }
 
   void move(int tileIndex) {
-    int size = widget.n;
-    int hole = widget.n*widget.n-1;
-    
-    if(tileIndex>0 && tiles![tileIndex-1] == hole) {
-      setState(() {
-        int temp = tiles![tileIndex];
-        tiles![tileIndex] = tiles![tileIndex-1];
-        tiles![tileIndex-1] = temp;
-      });
-    }
-    if(tileIndex<hole && tiles![tileIndex-1] == hole) {
-      setState(() {
-        int temp = tiles![tileIndex];
-        tiles![tileIndex] = tiles![tileIndex+1];
-        tiles![tileIndex+1] = temp;
-      });
-    }
 
   }
 
