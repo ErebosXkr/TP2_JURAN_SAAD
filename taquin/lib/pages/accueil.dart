@@ -17,7 +17,7 @@ class Accueil extends StatelessWidget {
           children: [
             // Image de prévisualisation du jeu
             Image.asset(
-              'assets/preview_image.png', // Remplacez par le chemin de votre image
+              'assets/preview_image.png', // Remplacez par le chemin de la bonne image
               width: 200,
               height: 200,
             ),
