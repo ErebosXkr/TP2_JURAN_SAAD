@@ -16,6 +16,7 @@ class Exo7State extends State<Exo7> {
   late int div;
   late bool playable;
   late String url;
+  late String btext;
 
   @override
   void initState() {
@@ -23,6 +24,7 @@ class Exo7State extends State<Exo7> {
     div = 4;
     playable = false;
     url = "https://picsum.photos/1024";
+    btext = "Start";
   }
 
   @override
@@ -34,7 +36,30 @@ class Exo7State extends State<Exo7> {
         centerTitle: true,
       ),
 
-      body: Taquin(300, div, url: url, playable: playable),
+      body: Column(children: [
+          Taquin(300, div, url: url, playable: playable, key: UniqueKey()),
+          TextButton(onPressed: () {
+
+            if (btext == "Start") {
+              setState(() {
+                btext = "Stop";
+                playable = true;
+              });
+            }
+            else {
+              setState(() {
+                btext = "Start";
+                playable = false;
+              });
+            }
+
+          }, child: Text(btext)),
+          Slider(value: div.toDouble(), max: 8, min: 2, divisions: 5, onChanged: (value) => setState(() {
+            if (playable) return;
+            div = value.toInt();
+          }), activeColor: playable ? Colors.grey : Colors.blue,)
+        ],
+      )
 
     );
   }

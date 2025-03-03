@@ -24,12 +24,14 @@ class Taquin extends StatefulWidget{
 class TaquinState extends State<Taquin> {
 
   List<int>? tiles;
+  late List<Widget> tilesWidget;
 
   @override
   void initState() {
     super.initState();
 
     tiles = List.generate(widget.n*widget.n, (index) => index);
+    tilesWidget = generateList();
   }
 
   @override
@@ -42,9 +44,52 @@ class TaquinState extends State<Taquin> {
       crossAxisSpacing: 2,
       mainAxisSpacing: 2,
       
-      children: List.generate(widget.n*widget.n, (index) {
-        int i = index%widget.n;
-        int j = index~/widget.n;
+      children: tilesWidget),
+      
+    );
+  }
+
+  void move(int tileIndex) {
+    if (!widget.playable) return;
+
+    int size = widget.n;
+    int targetId = size*size-1;
+    int x = tileIndex%size;
+    int y = tileIndex~/size;
+
+    if (x>0 && tiles![y*size+x-1] == targetId) {
+      int tmp = tiles![y*size+x];
+      tiles![y*size+x] = tiles![y*size+x-1];
+      tiles![y*size+x-1] = tmp;
+    }
+
+    if (x<size-1 && tiles![y*size+x+1] == targetId) {
+      int tmp = tiles![y*size+x];
+      tiles![y*size+x] = tiles![y*size+x+1];
+      tiles![y*size+x+1] = tmp;
+    }
+
+    if (y>0 && tiles![(y-1)*size+x] == targetId) {
+      int tmp = tiles![y*size+x];
+      tiles![y*size+x] = tiles![(y-1)*size+x];
+      tiles![(y-1)*size+x] = tmp;
+    }
+
+    if (y<size-1 && tiles![(y+1)*size+x] == targetId) {
+      int tmp = tiles![y*size+x];
+      tiles![y*size+x] = tiles![(y+1)*size+x];
+      tiles![(y+1)*size+x] = tmp;
+    }
+
+    setState(() {
+      tilesWidget = generateList();
+    });
+  }
+
+  List<Widget> generateList() {
+    return List.generate(widget.n*widget.n, (index) {
+        int i = tiles![index]%widget.n;
+        int j = tiles![index]~/widget.n;
         Alignment a = Alignment(i/(widget.n-1)*2 - 1, j/(widget.n-1)*2 - 1);
 
         return SizedBox(
@@ -52,16 +97,10 @@ class TaquinState extends State<Taquin> {
         height: widget.size / widget.n,
         child: InkWell(
           onTap: () => move(index),
-          child: new Tile(imageURL: widget.url, alignment: a).croppedImageTile(1.0/widget.n),
+          child: tiles![index] != widget.n*widget.n-1 ? Tile(imageURL: widget.url, alignment: a).croppedImageTile(1.0/widget.n) : ColoredBox(color: Colors.white),
         )
         );}
-      )),
-      
-    );
-  }
-
-  void move(int tileIndex) {
-
+      );
   }
 
 
