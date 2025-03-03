@@ -5,6 +5,7 @@ import 'package:taquin/pages/exo6.dart';
 import 'package:taquin/pages/exo5.dart';
 import 'package:taquin/pages/exo7.dart';
 
+//à renommer en exercices
 class Home extends StatelessWidget{
   const Home({super.key});
   
