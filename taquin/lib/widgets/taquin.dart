@@ -7,8 +7,11 @@ class Taquin extends StatefulWidget{
   final int n;
   final int size;
   late String url;
-  Taquin(this.size, this.n, {super.key, String? url}) {
+  late bool playable;
+
+  Taquin(this.size, this.n, {super.key, String? url, bool? playable}) {
     this.url = url ?? "https://picsum.photos/1024";
+    this.playable = playable ?? false;
   }
 
   @override
