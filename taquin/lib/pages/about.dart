@@ -8,10 +8,11 @@ class About extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('A propos'),
+        backgroundColor: Colors.blue, // Définir la couleur de l'en-tête en bleu
       ),
-      body: const Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Center(
           child: Text(
             'Cette application de taquin est un jeu de puzzle classique où le joueur doit réorganiser les tuiles pour former une image ou une séquence correcte. '
             'Le jeu est conçu pour être à la fois amusant et éducatif, aidant les joueurs à améliorer leurs compétences en résolution de problèmes et leur logique. '
