@@ -32,7 +32,6 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> pages = [
     const Accueil(),
-    const Exo7(),
     const Home(), // à renommer exercices à terme
     const About(),
   ];
@@ -56,10 +55,6 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Accueil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.games),
-            label: 'Taquin',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
