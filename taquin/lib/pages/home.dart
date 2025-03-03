@@ -45,17 +45,6 @@ class Home extends StatelessWidget{
             ),
           ),
 
-          Card(
-            color: Colors.blue,
-            child: ListTile(
-              title: Text("Exo 6", style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
-              onTap: () {
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PositionedTiles())
-                );
-              },
-            ),
-          ),
 
           Card(
             color: Colors.blue,
@@ -64,6 +53,18 @@ class Home extends StatelessWidget{
               onTap: () {
                 Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Exo5())
+                );
+              },
+            ),
+          ),
+
+            Card(
+            color: Colors.blue,
+            child: ListTile(
+              title: Text("Exo 6", style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
+              onTap: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PositionedTiles())
                 );
               },
             ),
