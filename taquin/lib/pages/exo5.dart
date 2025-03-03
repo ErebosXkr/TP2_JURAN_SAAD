@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:taquin/widgets/taquin.dart';
 
-class Exo5 extends StatelessWidget {
-  const Exo5();
+class Exo5 extends StatefulWidget {
+
+  late String url;
+
+  Exo5({super.key}) {
+    url = "https://picsum.photos/1024";
+  }
+  
+  @override
+  State<StatefulWidget> createState() {
+    return Exo5State();
+  }
+  
+}
+
+class Exo5State extends State<Exo5> {
+
+  double div = 4;
 
   @override
   Widget build(BuildContext context) {
-
-  int width = (MediaQuery.sizeOf(context).width - 100).toInt();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -17,11 +30,22 @@ class Exo5 extends StatelessWidget {
       ),
 
       body: Center(
-        child: Taquin(width, 8),
+        child: Column(children: [
+          Taquin(200, div.round()),
+          Slider(value: div, onChanged: (newValue) {
+            setState(() {
+              div = newValue;
+            });
+          },
+          min: 2,
+          max: 8,
+          divisions: 5,)
+        ],),
       )
 
     );
   }
+
 
   
 }

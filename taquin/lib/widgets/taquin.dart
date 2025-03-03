@@ -7,8 +7,8 @@ class Taquin extends StatefulWidget{
   final int n;
   final int size;
   late String url;
-  Taquin(this.size, this.n, {super.key}) {
-    url = "https://picsum.photos/1024";
+  Taquin(this.size, this.n, {super.key, String? url}) {
+    this.url = url ?? "https://picsum.photos/1024";
   }
 
   @override
@@ -32,8 +32,8 @@ class TaquinState extends State<Taquin> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widget.size as double,
-      height: widget.size as double,
+      width: widget.size.toDouble(),
+      height: widget.size.toDouble(),
       child: GridView.count(
       crossAxisCount: widget.n,
       crossAxisSpacing: 2,
