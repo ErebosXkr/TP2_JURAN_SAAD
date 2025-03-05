@@ -147,6 +147,18 @@ class TaquinState extends State<Taquin> {
                     if (showNumbers)
                       Align(
                         alignment: Alignment.center,
+                        child: Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(127, 255, 255, 255),
+                            shape: BoxShape.circle
+                          ),
+                        ),
+                      ),
+                    if (showNumbers)
+                      Align(
+                        alignment: Alignment.center,
                         child: Text(
                           "${tiles![index]}",
                           style: const TextStyle(color: Colors.black, fontSize: 12),
