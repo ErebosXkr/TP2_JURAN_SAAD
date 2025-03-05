@@ -92,7 +92,6 @@ class _AccueilState extends State<Accueil> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Afficher les chiffres'),
                 Switch(
                   value: _showNumbers,
                   onChanged: (value) {
@@ -101,6 +100,7 @@ class _AccueilState extends State<Accueil> {
                     });
                   },
                 ),
+                const Text('Afficher les chiffres'),
               ],
             ),
             const SizedBox(height: 20),
