@@ -42,8 +42,10 @@ class AccueilState extends State<Accueil> {
             ),
             const SizedBox(height: 50),
             // Boutons de sélection de niveau de difficulté
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Wrap(
+              spacing: 8.0, // Espace horizontal entre les boutons
+              runSpacing: 8.0, // Espace vertical entre les lignes de boutons
+              alignment: WrapAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: () {
