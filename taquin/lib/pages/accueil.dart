@@ -9,7 +9,7 @@ class Accueil extends StatefulWidget {
 }
 
 class _AccueilState extends State<Accueil> {
-  int _selectedDifficulty = 3; // Variable pour stocker le niveau de difficulté
+  int _selectedDifficulty = 2; // Variable pour stocker le niveau de difficulté
   bool _showNumbers = true; // Variable pour stocker l'état du switch
   String url = "https://picsum.photos/1024";
 
@@ -44,13 +44,24 @@ class _AccueilState extends State<Accueil> {
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
+                      _selectedDifficulty = 2;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _selectedDifficulty == 2 ? Colors.blue : Colors.grey,
+                  ),
+                  child: const Text('Débutant'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
                       _selectedDifficulty = 3;
                     });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _selectedDifficulty == 3 ? Colors.blue : Colors.grey,
                   ),
-                  child: const Text('Débutant'),
+                  child: const Text('Intermédiaire'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -61,7 +72,7 @@ class _AccueilState extends State<Accueil> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _selectedDifficulty == 4 ? Colors.blue : Colors.grey,
                   ),
-                  child: const Text('Intermédiaire'),
+                  child: const Text('Avancé'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -71,17 +82,6 @@ class _AccueilState extends State<Accueil> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _selectedDifficulty == 5 ? Colors.blue : Colors.grey,
-                  ),
-                  child: const Text('Avancé'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _selectedDifficulty = 6;
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedDifficulty == 6 ? Colors.blue : Colors.grey,
                   ),
                   child: const Text('Expérimenté'),
                 ),
