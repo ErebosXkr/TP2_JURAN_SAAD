@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taquin/pages/exo7.dart';
+import 'package:taquin/pages/pageTaquin.dart';
 
 class Accueil extends StatefulWidget {
   const Accueil({super.key});
@@ -10,6 +11,7 @@ class Accueil extends StatefulWidget {
 
 class _AccueilState extends State<Accueil> {
   int _selectedDifficulty = 3; // Variable pour stocker le niveau de difficulté
+  String url = "https://picsum.photos/1024";
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +25,8 @@ class _AccueilState extends State<Accueil> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
           
-            Image.asset(
-              'assets/preview_image.png', // Remplacez par le chemin de la bonne image
+            Image.network(
+              url, // Remplacez par le chemin de la bonne image
               width: 200,
               height: 200,
             ),
@@ -86,7 +88,7 @@ class _AccueilState extends State<Accueil> {
                 Navigator.push(
                   context,
                   //MaterialPageRoute(builder: (context) => Exo7(difficulty: _selectedDifficulty)),
-                  MaterialPageRoute(builder: (context) => const Exo7()),
+                  MaterialPageRoute(builder: (context) => PageTaquin(_selectedDifficulty, url)),
                 );
               },
               child: const Text('Jouer'),
