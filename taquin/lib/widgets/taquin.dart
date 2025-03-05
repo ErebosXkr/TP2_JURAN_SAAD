@@ -37,11 +37,12 @@ class TaquinState extends State<Taquin> {
     super.initState();
 
     tiles = List.generate(widget.n*widget.n, (index) => index);
-    tilesWidget = generateList();
+    
 
     if(widget.shuffled) {
-      shuffle(10);
+      shuffle(1000);
     }
+    tilesWidget = generateList();
   }
 
   @override
@@ -110,7 +111,7 @@ class TaquinState extends State<Taquin> {
           child: tiles![index] != widget.n*widget.n-1 ? Stack(
             children: [
               Tile(imageURL: widget.url, alignment: a).croppedImageTile(1.0/widget.n),
-              Text("${tiles![index]}", style: TextStyle(color: Colors.black, fontSize: 12),)
+              ColoredBox(color:Colors.white ,child: Text("${tiles![index]}", style: TextStyle(color: Colors.black, fontSize: 12),))
             ],
           ) : ColoredBox(color: Colors.white),
         )
