@@ -37,7 +37,7 @@ class Exo7State extends State<Exo7> {
       ),
 
       body: Column(children: [
-          Taquin(300, div, url: url, playable: playable, key: UniqueKey()),
+          Taquin(300, div, url: url, playable: playable, key: UniqueKey(), shuffled: playable),
           TextButton(onPressed: () {
 
             if (btext == "Start") {

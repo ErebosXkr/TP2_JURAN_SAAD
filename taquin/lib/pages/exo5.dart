@@ -31,7 +31,7 @@ class Exo5State extends State<Exo5> {
 
       body: Center(
         child: Column(children: [
-          Taquin(200, div.round()),
+          Taquin(200, div.round(), key: UniqueKey(),),
           Slider(value: div, onChanged: (newValue) {
             setState(() {
               div = newValue;

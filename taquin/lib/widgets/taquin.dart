@@ -1,17 +1,23 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:taquin/pages/exo4.dart';
 
-// marche pas de fou
+// ignore: must_be_immutable
 class Taquin extends StatefulWidget{
 
   final int n;
   final int size;
   late String url;
   late bool playable;
+  late bool shuffled;
+  late Random random;
 
-  Taquin(this.size, this.n, {super.key, String? url, bool? playable}) {
+  Taquin(this.size, this.n, {super.key, String? url, bool? playable, bool? shuffled}) {
     this.url = url ?? "https://picsum.photos/1024";
     this.playable = playable ?? false;
+    this.shuffled = shuffled ?? false;
+    this.random = Random();
   }
 
   @override
@@ -32,6 +38,10 @@ class TaquinState extends State<Taquin> {
 
     tiles = List.generate(widget.n*widget.n, (index) => index);
     tilesWidget = generateList();
+
+    if(widget.shuffled) {
+      shuffle(10);
+    }
   }
 
   @override
@@ -106,6 +116,51 @@ class TaquinState extends State<Taquin> {
         )
         );}
       );
+  }
+
+  void shuffle(int n) {
+    int x = widget.n-1;
+    int y = widget.n-1;
+    int size = widget.n;
+
+    for (int i = 0; i < n; i++) {
+      int action = widget.random.nextInt(4);
+
+      //bas
+      if (action == 0 && y>0) {
+        int temp = tiles![y*size+x];
+        tiles![y*size+x] = tiles![(y-1)*size+x];
+        tiles![(y-1)*size+x] = temp;
+        y--;
+      }
+
+      //gauche
+      if (action == 1 && x>0) {
+        int temp = tiles![y*size+x];
+        tiles![y*size+x] = tiles![y*size+x-1];
+        tiles![y*size+x-1] = temp;
+        x--;
+      }
+
+      //haut
+      if (action == 2 && y<size-1) {
+        int temp = tiles![y*size+x];
+        tiles![y*size+x] = tiles![(y+1)*size+x];
+        tiles![(y+1)*size+x] = temp;
+        y++;
+      }
+
+      //bas
+      if (action == 3 && x<size-1) {
+        int temp = tiles![y*size+x];
+        tiles![y*size+x] = tiles![y*size+x+1];
+        tiles![y*size+x+1] = temp;
+        x++;
+      }
+      
+
+    }
+
   }
 
 
