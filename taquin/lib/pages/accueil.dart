@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:taquin/pages/exo7.dart';
 import 'package:taquin/pages/pageTaquin.dart';
 
 class Accueil extends StatefulWidget {
@@ -11,7 +10,14 @@ class Accueil extends StatefulWidget {
 
 class _AccueilState extends State<Accueil> {
   int _selectedDifficulty = 3; // Variable pour stocker le niveau de difficulté
+  bool _showNumbers = true; // Variable pour stocker l'état du switch
   String url = "https://picsum.photos/1024";
+
+  void _changeImage() {
+    setState(() {
+      url = "https://picsum.photos/1024?random=${DateTime.now().millisecondsSinceEpoch}";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class _AccueilState extends State<Accueil> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          
+            // Image de prévisualisation du jeu
             Image.network(
               url, // Remplacez par le chemin de la bonne image
               width: 200,
@@ -82,16 +88,40 @@ class _AccueilState extends State<Accueil> {
               ],
             ),
             const SizedBox(height: 20),
-            // Bouton "Jouer"
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  //MaterialPageRoute(builder: (context) => Exo7(difficulty: _selectedDifficulty)),
-                  MaterialPageRoute(builder: (context) => PageTaquin(_selectedDifficulty, url)),
-                );
-              },
-              child: const Text('Jouer'),
+            // Switch "Afficher les chiffres"
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Switch(
+                  value: _showNumbers,
+                  onChanged: (value) {
+                    setState(() {
+                      _showNumbers = value;
+                    });
+                  },
+                ),
+                const Text('Afficher les chiffres'),
+              ],
+            ),
+            const SizedBox(height: 20),
+            // Boutons "Jouer" et "Changer d'image"
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PageTaquin(_selectedDifficulty, url, _showNumbers)),
+                    );
+                  },
+                  child: const Text('Jouer'),
+                ),
+                ElevatedButton(
+                  onPressed: _changeImage,
+                  child: const Text('Changer d\'image'),
+                ),
+              ],
             ),
           ],
         ),
