@@ -10,6 +10,7 @@ class Accueil extends StatefulWidget {
 
 class _AccueilState extends State<Accueil> {
   int _selectedDifficulty = 3; // Variable pour stocker le niveau de difficulté
+  bool _showNumbers = true; // Variable pour stocker l'état du switch
   String url = "https://picsum.photos/1024";
 
   void _changeImage() {
@@ -87,6 +88,22 @@ class _AccueilState extends State<Accueil> {
               ],
             ),
             const SizedBox(height: 20),
+            // Switch "Afficher les chiffres"
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Afficher les chiffres'),
+                Switch(
+                  value: _showNumbers,
+                  onChanged: (value) {
+                    setState(() {
+                      _showNumbers = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
             // Boutons "Jouer" et "Changer d'image"
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -95,7 +112,7 @@ class _AccueilState extends State<Accueil> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PageTaquin(_selectedDifficulty, url)),
+                      MaterialPageRoute(builder: (context) => PageTaquin(_selectedDifficulty, url, _showNumbers)),
                     );
                   },
                   child: const Text('Jouer'),
