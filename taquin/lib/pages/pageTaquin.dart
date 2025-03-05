@@ -4,9 +4,8 @@ import 'package:taquin/widgets/taquin.dart';
 class PageTaquin extends StatelessWidget {
   final int size;
   final String url;
-  final bool showNumbers;
 
-  const PageTaquin(this.size, this.url, this.showNumbers, {super.key});
+  const PageTaquin(this.size, this.url, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,6 @@ class PageTaquin extends StatelessWidget {
           url: url,
           playable: true,
           shuffled: true,
-          showNumbers: showNumbers,
           key: UniqueKey(),
         ),
       ),

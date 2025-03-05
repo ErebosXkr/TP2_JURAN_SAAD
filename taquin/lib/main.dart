@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
 
   final List<Widget> pages = [
-    const Accueil(),
+    Accueil(),
     const Home(), // à renommer exercices à terme
     const About(),
   ];

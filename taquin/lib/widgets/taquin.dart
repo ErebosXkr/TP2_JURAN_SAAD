@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:taquin/pages/accueil.dart';
 import 'package:taquin/pages/exo4.dart';
 
 // ignore: must_be_immutable
@@ -9,14 +10,12 @@ class Taquin extends StatefulWidget {
   late String url;
   late bool playable;
   late bool shuffled;
-  late bool showNumbers;
   late Random random;
 
-  Taquin(this.size, this.n, {super.key, String? url, bool? playable, bool? shuffled, bool? showNumbers}) {
+  Taquin(this.size, this.n, {super.key, String? url, bool? playable, bool? shuffled}) {
     this.url = url ?? "https://picsum.photos/1024";
     this.playable = playable ?? false;
     this.shuffled = shuffled ?? false;
-    this.showNumbers = showNumbers ?? true;
     random = Random();
   }
 
@@ -30,6 +29,7 @@ class TaquinState extends State<Taquin> {
   List<int>? tiles;
   late List<int> actions;
   late List<Widget> tilesWidget;
+  bool showNumbers = false;
 
   @override
   void initState() {
@@ -44,6 +44,7 @@ class TaquinState extends State<Taquin> {
     if(widget.shuffled) {
       shuffle(100*widget.n*widget.n);
     }
+
     tilesWidget = generateList();
   }
 
@@ -64,8 +65,20 @@ class TaquinState extends State<Taquin> {
           children: tilesWidget),
         ),
 
-        TextButton(onPressed: solve, child: Text("Solve!", style: TextStyle(fontSize: 14),))
+        ElevatedButton(
+          onPressed: solve,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 214, 214, 214),
+          ),
+          child: const Text('Auto Solve!')
+        ),
 
+        Checkbox(value: showNumbers, onChanged: (value) {
+          setState(() {
+            showNumbers = value!;
+            tilesWidget = generateList();
+          });
+        })
       ],
 
     );
@@ -110,6 +123,10 @@ class TaquinState extends State<Taquin> {
     setState(() {
       tilesWidget = generateList();
     });
+
+    if(checkFinished()) {
+      handleFinish();
+    }
   }
 
   List<Widget> generateList() {
@@ -127,7 +144,7 @@ class TaquinState extends State<Taquin> {
               ? Stack(
                   children: [
                     Tile(imageURL: widget.url, alignment: a).croppedImageTile(1.0 / widget.n),
-                    if (widget.showNumbers)
+                    if (showNumbers)
                       Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -240,8 +257,9 @@ class TaquinState extends State<Taquin> {
         });
       });
 
-
     }
+
+    Future.delayed(Duration(milliseconds: 10*actions.length)).then((m) {handleFinish();});
   }
 
   void fatTrim() {
@@ -265,6 +283,36 @@ class TaquinState extends State<Taquin> {
       actions.removeAt(removePair);
       actions.removeAt(removePair);
     }
+  }
+
+  bool checkFinished() {
+    for(int i = 0; i < tiles!.length; i++) {
+      if (i != tiles![i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  void handleFinish() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text("Vous avez gagné"),
+        content: Text("Bravo !"),
+        actions: [
+          TextButton(onPressed: () {
+            Navigator.pop(context, "OK");
+            Navigator.pop(context, "Retour Accueil");
+            if(Accueil.globalKey.currentState != null) {
+              Accueil.globalKey.currentState!.setState(() {
+                AccueilState.url = "https://picsum.photos/1024?random=${DateTime.now().millisecondsSinceEpoch}";
+              });
+            }
+          }, child: Text("OK"))
+        ],
+      )
+    );
   }
   
 }

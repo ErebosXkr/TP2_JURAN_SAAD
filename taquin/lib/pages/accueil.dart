@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:taquin/pages/pageTaquin.dart';
 
 class Accueil extends StatefulWidget {
-  const Accueil({super.key});
+  static GlobalKey globalKey = GlobalKey();
+
+  Accueil(): super(key: globalKey);
 
   @override
-  _AccueilState createState() => _AccueilState();
+  AccueilState createState() => AccueilState();
 }
 
-class _AccueilState extends State<Accueil> {
-  int _selectedDifficulty = 2; // Variable pour stocker le niveau de difficulté
-  bool _showNumbers = true; // Variable pour stocker l'état du switch
-  String url = "https://picsum.photos/1024";
+class AccueilState extends State<Accueil> {
+  int _selectedDifficulty = 2; // Variable pour stocker l'état du switch
+  static String url = "https://picsum.photos/1024";
 
   void _changeImage() {
     setState(() {
@@ -22,10 +23,6 @@ class _AccueilState extends State<Accueil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Accueil'),
-        backgroundColor: Colors.blue, // Définir la couleur de l'en-tête en bleu
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,10 +30,17 @@ class _AccueilState extends State<Accueil> {
             // Image de prévisualisation du jeu
             Image.network(
               url, // Remplacez par le chemin de la bonne image
-              width: 200,
-              height: 200,
+              width: 300,
+              height: 300,
             ),
-            const SizedBox(height: 20),
+            // Bonton renew
+            ElevatedButton(
+              onPressed: _changeImage,
+              child: Icon(
+                Icons.autorenew
+                ),
+            ),
+            const SizedBox(height: 50),
             // Boutons de sélection de niveau de difficulté
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -48,9 +52,9 @@ class _AccueilState extends State<Accueil> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedDifficulty == 2 ? Colors.blue : Colors.grey,
+                    backgroundColor: _selectedDifficulty == 2 ? const Color.fromARGB(255, 33, 224, 39) : const Color.fromARGB(255, 214, 214, 214),
                   ),
-                  child: const Text('Débutant'),
+                  child: const Text('2x2'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -59,9 +63,9 @@ class _AccueilState extends State<Accueil> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedDifficulty == 3 ? Colors.blue : Colors.grey,
+                    backgroundColor: _selectedDifficulty == 3 ? const Color.fromARGB(255, 220, 213, 0) : const Color.fromARGB(255, 214, 214, 214),
                   ),
-                  child: const Text('Intermédiaire'),
+                  child: const Text('3x3'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -70,9 +74,9 @@ class _AccueilState extends State<Accueil> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedDifficulty == 4 ? Colors.blue : Colors.grey,
+                    backgroundColor: _selectedDifficulty == 4 ? const Color.fromARGB(255, 243, 159, 33) : const Color.fromARGB(255, 214, 214, 214),
                   ),
-                  child: const Text('Avancé'),
+                  child: const Text('4x4'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -81,47 +85,22 @@ class _AccueilState extends State<Accueil> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedDifficulty == 5 ? Colors.blue : Colors.grey,
+                    backgroundColor: _selectedDifficulty == 5 ? const Color.fromARGB(255, 227, 21, 21) : const Color.fromARGB(255, 214, 214, 214),
                   ),
-                  child: const Text('Expérimenté'),
+                  child: const Text('5x5'),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            // Switch "Afficher les chiffres"
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Switch(
-                  value: _showNumbers,
-                  onChanged: (value) {
-                    setState(() {
-                      _showNumbers = value;
-                    });
-                  },
-                ),
-                const Text('Afficher les chiffres'),
-              ],
-            ),
-            const SizedBox(height: 20),
-            // Boutons "Jouer" et "Changer d'image"
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PageTaquin(_selectedDifficulty, url, _showNumbers)),
-                    );
-                  },
-                  child: const Text('Jouer'),
-                ),
-                ElevatedButton(
-                  onPressed: _changeImage,
-                  child: const Text('Changer d\'image'),
-                ),
-              ],
+            const SizedBox(height: 100),
+            // Boutons "Jouer"
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PageTaquin(_selectedDifficulty, url)),
+                );
+              },
+              child: const Text('Jouer', style: TextStyle(fontSize: 40),),
             ),
           ],
         ),
