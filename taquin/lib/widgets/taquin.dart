@@ -17,7 +17,7 @@ class Taquin extends StatefulWidget{
     this.url = url ?? "https://picsum.photos/1024";
     this.playable = playable ?? false;
     this.shuffled = shuffled ?? false;
-    this.random = Random();
+    random = Random();
   }
 
   @override
@@ -30,33 +30,46 @@ class Taquin extends StatefulWidget{
 class TaquinState extends State<Taquin> {
 
   List<int>? tiles;
+  late List<int> actions;
   late List<Widget> tilesWidget;
 
   @override
   void initState() {
     super.initState();
 
+
+
+    actions = List.empty(growable: true);
     tiles = List.generate(widget.n*widget.n, (index) => index);
     
 
     if(widget.shuffled) {
-      shuffle(1000);
+      shuffle(100*widget.n*widget.n);
     }
     tilesWidget = generateList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.size.toDouble(),
-      height: widget.size.toDouble(),
-      child: GridView.count(
-      crossAxisCount: widget.n,
-      crossAxisSpacing: 2,
-      mainAxisSpacing: 2,
-      
-      children: tilesWidget),
-      
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: widget.size.toDouble(),
+          height: widget.size.toDouble(),
+          child: GridView.count(
+          crossAxisCount: widget.n,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+          
+          children: tilesWidget),
+        ),
+
+        TextButton(onPressed: solve, child: Text("Solve!", style: TextStyle(fontSize: 14),))
+
+      ],
+
     );
   }
 
@@ -72,24 +85,28 @@ class TaquinState extends State<Taquin> {
       int tmp = tiles![y*size+x];
       tiles![y*size+x] = tiles![y*size+x-1];
       tiles![y*size+x-1] = tmp;
+      actions.add(3);
     }
 
     if (x<size-1 && tiles![y*size+x+1] == targetId) {
       int tmp = tiles![y*size+x];
       tiles![y*size+x] = tiles![y*size+x+1];
       tiles![y*size+x+1] = tmp;
+      actions.add(1);
     }
 
     if (y>0 && tiles![(y-1)*size+x] == targetId) {
       int tmp = tiles![y*size+x];
       tiles![y*size+x] = tiles![(y-1)*size+x];
       tiles![(y-1)*size+x] = tmp;
+      actions.add(2);
     }
 
     if (y<size-1 && tiles![(y+1)*size+x] == targetId) {
       int tmp = tiles![y*size+x];
       tiles![y*size+x] = tiles![(y+1)*size+x];
       tiles![(y+1)*size+x] = tmp;
+      actions.add(0);
     }
 
     setState(() {
@@ -133,6 +150,7 @@ class TaquinState extends State<Taquin> {
         tiles![y*size+x] = tiles![(y-1)*size+x];
         tiles![(y-1)*size+x] = temp;
         y--;
+        actions.add(action);
       }
 
       //gauche
@@ -141,6 +159,7 @@ class TaquinState extends State<Taquin> {
         tiles![y*size+x] = tiles![y*size+x-1];
         tiles![y*size+x-1] = temp;
         x--;
+        actions.add(action);
       }
 
       //haut
@@ -149,14 +168,16 @@ class TaquinState extends State<Taquin> {
         tiles![y*size+x] = tiles![(y+1)*size+x];
         tiles![(y+1)*size+x] = temp;
         y++;
+        actions.add(action);
       }
 
-      //bas
+      //droite
       if (action == 3 && x<size-1) {
         int temp = tiles![y*size+x];
         tiles![y*size+x] = tiles![y*size+x+1];
         tiles![y*size+x+1] = temp;
         x++;
+        actions.add(action);
       }
       
 
@@ -164,6 +185,82 @@ class TaquinState extends State<Taquin> {
 
   }
 
+  void solve() {
 
+    fatTrim();
+
+    for (int i = 0; i < actions.length; i++) {
+      int move = actions[actions.length-1-i];
+
+      int x = tiles!.indexOf(widget.n*widget.n-1) % widget.n;
+      int y = tiles!.indexOf(widget.n*widget.n-1) ~/ widget.n;
+      int size = widget.n;
+
+      
+      //haut
+      if (move == 0) {
+          int temp = tiles![y*size+x];
+          tiles![y*size+x] = tiles![(y+1)*size+x];
+          tiles![(y+1)*size+x] = temp;
+          y++;
+      }
+
+      //droite
+      if (move == 1) {
+          int temp = tiles![y*size+x];
+          tiles![y*size+x] = tiles![y*size+x+1];
+          tiles![y*size+x+1] = temp;
+          x++;
+      }
+
+      //bas
+      if (move == 2) {
+          int temp = tiles![y*size+x];
+          tiles![y*size+x] = tiles![(y-1)*size+x];
+          tiles![(y-1)*size+x] = temp;
+          y--;
+      }
+
+      //gauche
+      if (move == 3) {
+          int temp = tiles![y*size+x];
+          tiles![y*size+x] = tiles![y*size+x-1];
+          tiles![y*size+x-1] = temp;
+          x--;
+      }
+
+      List<Widget> state = generateList();
+      Future.delayed(Duration(milliseconds: 10*(i+1))).then((m) {
+        setState(() {
+        tilesWidget = state;
+        });
+      });
+
+
+    }
+  }
+
+  void fatTrim() {
+    bool check() {
+      for(int i = 0; i<actions.length-2; i++) {
+        if(actions[i]-actions[i+1] == 2 || actions[i]-actions[i+1] == -2) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    while(check()) {
+      int removePair = 0;
+      for (int i = 0; i<actions.length-2; i++) {
+        if(actions[i]-actions[i+1] == 2 || actions[i]-actions[i+1] == -2) {
+          removePair = i;
+          break;
+        }
+      }
+      actions.removeAt(removePair);
+      actions.removeAt(removePair);
+    }
+  }
   
 }

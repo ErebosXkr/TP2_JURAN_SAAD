@@ -19,7 +19,7 @@ class PageTaquin extends StatelessWidget {
       ),
 
       body: Center(
-        child: Taquin(500, size, url: url, playable: true, shuffled: true, key: UniqueKey()),
+        child: Taquin(400, size, url: url, playable: true, shuffled: true, key: UniqueKey()),
       ),
 
     );
