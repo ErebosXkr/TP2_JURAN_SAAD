@@ -35,14 +35,11 @@ class TaquinState extends State<Taquin> {
   void initState() {
     super.initState();
 
-
-
     actions = List.empty(growable: true);
-    tiles = List.generate(widget.n*widget.n, (index) => index);
-    
+    tiles = List.generate(widget.n * widget.n, (index) => index);
 
-    if(widget.shuffled) {
-      shuffle(100*widget.n*widget.n);
+    if (widget.shuffled) {
+      shuffle(100 * widget.n * widget.n);
     }
 
     tilesWidget = generateList();
@@ -58,29 +55,35 @@ class TaquinState extends State<Taquin> {
           width: widget.size.toDouble(),
           height: widget.size.toDouble(),
           child: GridView.count(
-          crossAxisCount: widget.n,
-          crossAxisSpacing: 2,
-          mainAxisSpacing: 2,
-          
-          children: tilesWidget),
+            crossAxisCount: widget.n,
+            crossAxisSpacing: 2,
+            mainAxisSpacing: 2,
+            children: tilesWidget,
+          ),
         ),
-
         ElevatedButton(
           onPressed: solve,
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 214, 214, 214),
           ),
-          child: const Text('Auto Solve!')
+          child: const Text('Auto Solve!'),
         ),
-
-        Checkbox(value: showNumbers, onChanged: (value) {
-          setState(() {
-            showNumbers = value!;
-            tilesWidget = generateList();
-          });
-        })
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Checkbox(
+              value: showNumbers,
+              onChanged: (value) {
+                setState(() {
+                  showNumbers = value!;
+                  tilesWidget = generateList();
+                });
+              },
+            ),
+            const Text('Afficher les chiffres'),
+          ],
+        ),
       ],
-
     );
   }
 
@@ -92,31 +95,31 @@ class TaquinState extends State<Taquin> {
     int x = tileIndex % size;
     int y = tileIndex ~/ size;
 
-    if (x>0 && tiles![y*size+x-1] == targetId) {
-      int tmp = tiles![y*size+x];
-      tiles![y*size+x] = tiles![y*size+x-1];
-      tiles![y*size+x-1] = tmp;
+    if (x > 0 && tiles![y * size + x - 1] == targetId) {
+      int tmp = tiles![y * size + x];
+      tiles![y * size + x] = tiles![y * size + x - 1];
+      tiles![y * size + x - 1] = tmp;
       actions.add(3);
     }
 
-    if (x<size-1 && tiles![y*size+x+1] == targetId) {
-      int tmp = tiles![y*size+x];
-      tiles![y*size+x] = tiles![y*size+x+1];
-      tiles![y*size+x+1] = tmp;
+    if (x < size - 1 && tiles![y * size + x + 1] == targetId) {
+      int tmp = tiles![y * size + x];
+      tiles![y * size + x] = tiles![y * size + x + 1];
+      tiles![y * size + x + 1] = tmp;
       actions.add(1);
     }
 
-    if (y>0 && tiles![(y-1)*size+x] == targetId) {
-      int tmp = tiles![y*size+x];
-      tiles![y*size+x] = tiles![(y-1)*size+x];
-      tiles![(y-1)*size+x] = tmp;
+    if (y > 0 && tiles![(y - 1) * size + x] == targetId) {
+      int tmp = tiles![y * size + x];
+      tiles![y * size + x] = tiles![(y - 1) * size + x];
+      tiles![(y - 1) * size + x] = tmp;
       actions.add(2);
     }
 
-    if (y<size-1 && tiles![(y+1)*size+x] == targetId) {
-      int tmp = tiles![y*size+x];
-      tiles![y*size+x] = tiles![(y+1)*size+x];
-      tiles![(y+1)*size+x] = tmp;
+    if (y < size - 1 && tiles![(y + 1) * size + x] == targetId) {
+      int tmp = tiles![y * size + x];
+      tiles![y * size + x] = tiles![(y + 1) * size + x];
+      tiles![(y + 1) * size + x] = tmp;
       actions.add(0);
     }
 
@@ -124,7 +127,7 @@ class TaquinState extends State<Taquin> {
       tilesWidget = generateList();
     });
 
-    if(checkFinished()) {
+    if (checkFinished()) {
       handleFinish();
     }
   }
@@ -152,7 +155,7 @@ class TaquinState extends State<Taquin> {
                           width: 30,
                           decoration: BoxDecoration(
                             color: Color.fromARGB(127, 255, 255, 255),
-                            shape: BoxShape.circle
+                            shape: BoxShape.circle,
                           ),
                         ),
                       ),
@@ -207,11 +210,11 @@ class TaquinState extends State<Taquin> {
         actions.add(action);
       }
 
-      //droite
-      if (action == 3 && x<size-1) {
-        int temp = tiles![y*size+x];
-        tiles![y*size+x] = tiles![y*size+x+1];
-        tiles![y*size+x+1] = temp;
+      // droite
+      if (action == 3 && x < size - 1) {
+        int temp = tiles![y * size + x];
+        tiles![y * size + x] = tiles![y * size + x + 1];
+        tiles![y * size + x + 1] = temp;
         x++;
         actions.add(action);
       }
@@ -219,75 +222,74 @@ class TaquinState extends State<Taquin> {
   }
 
   void solve() {
-
     fatTrim();
 
     for (int i = 0; i < actions.length; i++) {
-      int move = actions[actions.length-1-i];
+      int move = actions[actions.length - 1 - i];
 
-      int x = tiles!.indexOf(widget.n*widget.n-1) % widget.n;
-      int y = tiles!.indexOf(widget.n*widget.n-1) ~/ widget.n;
+      int x = tiles!.indexOf(widget.n * widget.n - 1) % widget.n;
+      int y = tiles!.indexOf(widget.n * widget.n - 1) ~/ widget.n;
       int size = widget.n;
 
-      
-      //haut
+      // haut
       if (move == 0) {
-          int temp = tiles![y*size+x];
-          tiles![y*size+x] = tiles![(y+1)*size+x];
-          tiles![(y+1)*size+x] = temp;
-          y++;
+        int temp = tiles![y * size + x];
+        tiles![y * size + x] = tiles![(y + 1) * size + x];
+        tiles![(y + 1) * size + x] = temp;
+        y++;
       }
 
-      //droite
+      // droite
       if (move == 1) {
-          int temp = tiles![y*size+x];
-          tiles![y*size+x] = tiles![y*size+x+1];
-          tiles![y*size+x+1] = temp;
-          x++;
+        int temp = tiles![y * size + x];
+        tiles![y * size + x] = tiles![y * size + x + 1];
+        tiles![y * size + x + 1] = temp;
+        x++;
       }
 
-      //bas
+      // bas
       if (move == 2) {
-          int temp = tiles![y*size+x];
-          tiles![y*size+x] = tiles![(y-1)*size+x];
-          tiles![(y-1)*size+x] = temp;
-          y--;
+        int temp = tiles![y * size + x];
+        tiles![y * size + x] = tiles![(y - 1) * size + x];
+        tiles![(y - 1) * size + x] = temp;
+        y--;
       }
 
-      //gauche
+      // gauche
       if (move == 3) {
-          int temp = tiles![y*size+x];
-          tiles![y*size+x] = tiles![y*size+x-1];
-          tiles![y*size+x-1] = temp;
-          x--;
+        int temp = tiles![y * size + x];
+        tiles![y * size + x] = tiles![y * size + x - 1];
+        tiles![y * size + x - 1] = temp;
+        x--;
       }
 
       List<Widget> state = generateList();
-      Future.delayed(Duration(milliseconds: 10*(i+1))).then((m) {
+      Future.delayed(Duration(milliseconds: 10 * (i + 1))).then((m) {
         setState(() {
-        tilesWidget = state;
+          tilesWidget = state;
         });
       });
-
     }
 
-    Future.delayed(Duration(milliseconds: 10*actions.length)).then((m) {handleFinish();});
+    Future.delayed(Duration(milliseconds: 10 * actions.length)).then((m) {
+      handleFinish();
+    });
   }
 
   void fatTrim() {
     bool check() {
-      for(int i = 0; i<actions.length-2; i++) {
-        if(actions[i]-actions[i+1] == 2 || actions[i]-actions[i+1] == -2) {
+      for (int i = 0; i < actions.length - 2; i++) {
+        if (actions[i] - actions[i + 1] == 2 || actions[i] - actions[i + 1] == -2) {
           return true;
         }
       }
       return false;
     }
 
-    while(check()) {
+    while (check()) {
       int removePair = 0;
-      for (int i = 0; i<actions.length-2; i++) {
-        if(actions[i]-actions[i+1] == 2 || actions[i]-actions[i+1] == -2) {
+      for (int i = 0; i < actions.length - 2; i++) {
+        if (actions[i] - actions[i + 1] == 2 || actions[i] - actions[i + 1] == -2) {
           removePair = i;
           break;
         }
@@ -298,7 +300,7 @@ class TaquinState extends State<Taquin> {
   }
 
   bool checkFinished() {
-    for(int i = 0; i < tiles!.length; i++) {
+    for (int i = 0; i < tiles!.length; i++) {
       if (i != tiles![i]) {
         return false;
       }
@@ -313,18 +315,20 @@ class TaquinState extends State<Taquin> {
         title: Text("Vous avez gagné"),
         content: Text("Bravo !"),
         actions: [
-          TextButton(onPressed: () {
-            Navigator.pop(context, "OK");
-            Navigator.pop(context, "Retour Accueil");
-            if(Accueil.globalKey.currentState != null) {
-              Accueil.globalKey.currentState!.setState(() {
-                AccueilState.url = "https://picsum.photos/1024?random=${DateTime.now().millisecondsSinceEpoch}";
-              });
-            }
-          }, child: Text("OK"))
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, "OK");
+              Navigator.pop(context, "Retour Accueil");
+              if (Accueil.globalKey.currentState != null) {
+                Accueil.globalKey.currentState!.setState(() {
+                  AccueilState.url = "https://picsum.photos/1024?random=${DateTime.now().millisecondsSinceEpoch}";
+                });
+              }
+            },
+            child: Text("OK"),
+          ),
         ],
-      )
+      ),
     );
   }
-  
 }

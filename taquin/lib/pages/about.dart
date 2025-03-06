@@ -14,9 +14,9 @@ class About extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: Center(
           child: Text(
+            'Taquin réalisé par Paul Juran et Léa-Line SAAD '
             'Cette application de taquin est un jeu de puzzle classique où le joueur doit réorganiser les tuiles pour former une image ou une séquence correcte. '
-            'Le jeu est conçu pour être à la fois amusant et éducatif, aidant les joueurs à améliorer leurs compétences en résolution de problèmes et leur logique. '
-            'Profitez de différents niveaux de difficulté et de diverses images à reconstituer. Bonne chance et amusez-vous bien !',
+            'Profitez de différents niveaux de difficulté (2*2, 3*3, 4*4 ou 5*5) et de diverses images à reconstituer. Bonne chance et amusez-vous bien !',
             style: TextStyle(fontSize: 16.0),
             textAlign: TextAlign.center,
           ),
