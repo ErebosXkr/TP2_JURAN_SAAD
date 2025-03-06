@@ -28,7 +28,6 @@ Ce projet est une application de jeu de taquin développée avec Flutter. Le taq
     ```bash
     flutter pub get
 
-
 ## Utilisation
 1. Lancez l'application:
 
@@ -47,14 +46,14 @@ Ce projet est une application de jeu de taquin développée avec Flutter. Le taq
 - lib/
   - main.dart : Point d'entrée de l'application.
   - pages/
-accueil.dart : Page d'accueil de l'application.
-about.dart : Page "À propos" de l'application.
-exo2.dart : Exercice 2.
-exo4.dart : Exercice 4.
-exo5.dart : Exercice 5.
-exo6.dart : Exercice 6.
-exo7.dart : Exercice 7.
-pageTaquin.dart : Page principale du jeu de taquin.
+    - accueil.dart : Page d'accueil de l'application.
+    - about.dart : Page "À propos" de l'application.
+    - exo2.dart : Exercice 2.
+    - exo4.dart : Exercice 4.
+    - exo5.dart : Exercice 5.
+    - exo6.dart : Exercice 6.
+    - exo7.dart : Exercice 7.
+    - pageTaquin.dart : Page principale du jeu de taquin.
   - widgets/
     - taquin.dart : Widget du jeu de taquin.
 
