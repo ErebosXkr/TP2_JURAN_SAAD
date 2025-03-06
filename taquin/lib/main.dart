@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taquin/pages/accueil.dart';
-import 'package:taquin/pages/home.dart'; //page des exercices
+import 'package:taquin/pages/exercices.dart'; //page des exercices
 import 'package:taquin/pages/about.dart';
 import 'package:taquin/pages/exo7.dart'; //en attendant d'avoir la page taquin
 
@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> pages = [
     Accueil(),
-    const Home(), // à renommer exercices à terme
+    const Exercices(), // à renommer exercices à terme
     const About(),
   ];
 
