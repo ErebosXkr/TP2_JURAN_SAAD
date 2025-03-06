@@ -29,7 +29,9 @@ class _ImageTransformerState extends State<ImageTransformer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Image Transformer'),
+        title: const Text('Transformer une image',
+        style: TextStyle(color: Colors.white),),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

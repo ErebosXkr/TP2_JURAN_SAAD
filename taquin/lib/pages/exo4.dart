@@ -4,7 +4,7 @@ class Tile {
   String imageURL;
   Alignment alignment;
 
-  Tile({required this.imageURL,required this.alignment});
+  Tile({required this.imageURL, required this.alignment});
 
   Widget croppedImageTile(factor) {
     return FittedBox(
@@ -23,7 +23,7 @@ class Tile {
   }
 }
 
-Tile tile = new Tile(
+Tile tile = Tile(
     imageURL: 'https://picsum.photos/512', alignment: Alignment(-1, -1));
 
 class DisplayTileWidget extends StatelessWidget {
@@ -33,23 +33,36 @@ class DisplayTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: Text('Display a Tile as a Cropped Image'),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: const Text(
+          'Affichage d une tuile',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: Center(
-          child: Column(children: [
-        SizedBox(
-            width: 150.0,
-            height: 150.0,
-            child: Container(
-                margin: EdgeInsets.all(20.0),
-                child: this.createTileWidgetFrom(tile))),
-        Container(
-            height: 200,
-            child: Image.network('https://picsum.photos/512',
-                fit: BoxFit.cover))
-      ])),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 150.0,
+              height: 150.0,
+              child: Container(
+                margin: const EdgeInsets.all(20.0),
+                child: createTileWidgetFrom(tile),
+              ),
+            ),
+            Container(
+              height: 200,
+              child: Image.network(
+                'https://picsum.photos/512',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

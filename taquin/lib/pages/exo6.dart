@@ -70,7 +70,9 @@ class PositionedTilesState extends State<PositionedTiles> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Moving Tiles'),
+        title: const Text('Animation d une tuile ',
+        style: TextStyle(color: Colors.white),),
+        backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
       ),
       body: GridView.builder(
