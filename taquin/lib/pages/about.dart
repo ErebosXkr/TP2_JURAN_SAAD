@@ -7,8 +7,10 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('A propos'),
-        backgroundColor: Colors.blue, // Définir la couleur de l'en-tête en bleu
+        title: const Text(
+          'A Propos',
+          style: TextStyle(color: Colors.white),),
+        backgroundColor: Theme.of(context).primaryColor, // Définir la couleur de l'en-tête en bleu
       ),
       body: const Padding(
         padding: EdgeInsets.all(16.0),

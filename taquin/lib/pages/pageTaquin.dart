@@ -11,9 +11,14 @@ class PageTaquin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text('Taquin'),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: const Text(
+          'Taquin',
+          style: TextStyle(color: Colors.white),),
         centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Mettre la flèche de retour en blanc
+        ),
       ),
       body: Center(
         child: Taquin(

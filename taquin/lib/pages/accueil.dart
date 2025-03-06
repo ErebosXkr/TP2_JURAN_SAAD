@@ -23,6 +23,12 @@ class AccueilState extends State<Accueil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Accueil',
+          style: TextStyle(color: Colors.white),),
+        backgroundColor: Theme.of(context).primaryColor, // Utiliser la couleur du thème
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,14 +39,15 @@ class AccueilState extends State<Accueil> {
               width: 300,
               height: 300,
             ),
-            // Bonton renew
+            const SizedBox(height: 20), // Ajout d'espace entre l'image et le bouton "Reset"
+            // Bouton reset
             ElevatedButton(
               onPressed: _changeImage,
-              child: Icon(
-                Icons.autorenew
-                ),
+              child: const Icon(
+                Icons.autorenew,
+              ),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20), // Ajout d'espace entre le bouton "Reset" et les boutons de difficulté
             // Boutons de sélection de niveau de difficulté
             Wrap(
               spacing: 8.0, // Espace horizontal entre les boutons
@@ -93,8 +100,8 @@ class AccueilState extends State<Accueil> {
                 ),
               ],
             ),
-            const SizedBox(height: 100),
-            // Boutons "Jouer"
+            const SizedBox(height: 20), // Ajout d'espace entre les boutons de difficulté et le bouton "Jouer"
+            // Bouton "Jouer"
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -102,7 +109,7 @@ class AccueilState extends State<Accueil> {
                   MaterialPageRoute(builder: (context) => PageTaquin(_selectedDifficulty, url)),
                 );
               },
-              child: const Text('Jouer', style: TextStyle(fontSize: 40),),
+              child: const Text('Jouer', style: TextStyle(fontSize: 40)),
             ),
           ],
         ),

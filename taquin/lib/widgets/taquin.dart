@@ -61,6 +61,7 @@ class TaquinState extends State<Taquin> {
             children: tilesWidget,
           ),
         ),
+        const SizedBox(height: 20), // Ajout d'espace entre le taquin et le bouton "Auto Solve"
         ElevatedButton(
           onPressed: solve,
           style: ElevatedButton.styleFrom(
@@ -68,6 +69,7 @@ class TaquinState extends State<Taquin> {
           ),
           child: const Text('Auto Solve!'),
         ),
+        const SizedBox(height: 20), // Ajout d'espace entre le bouton "Auto Solve" et la checkbox
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
